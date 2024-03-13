@@ -1,7 +1,10 @@
-export default class Media {
-  constructor(ratings = [], title = "") {
-    this._ratings = ratings;
-    this._title = title;
+import Catalog from "./Catalog";
+
+export default class Media extends Catalog {
+  constructor() {
+    super();
+    this._ratings = [];
+    this._title = "";
     this._isCheckedOut = false;
   }
 

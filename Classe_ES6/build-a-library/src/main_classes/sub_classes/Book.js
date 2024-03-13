@@ -2,8 +2,9 @@ import Media from "../Media";
 
 export default class Book extends Media {
   constructor(author = "", title, pages = 0, releaseDate = 0) {
-    super([], title);
+    super();
     this._author = author;
+    this._title = title;
     this._pages = pages;
     this._releaseDate = releaseDate;
   }
