@@ -2,15 +2,15 @@ export default class School {
   protected _name: string;
   protected _level: "primary" | "middle" | "high";
   protected _numberOfStudents: number;
-  private _politicalOrientation: string;
-  private _bankAccount: string;
+  private _politicalOrientation?: string | null | undefined;
+  private _bankAccount?: string | null | undefined;
 
   constructor(
     name: string,
     level: "primary" | "middle" | "high",
     numbersOfStudents: number,
-    politicalOrientation: string,
-    bankAccount: string
+    politicalOrientation?: string | null | undefined,
+    bankAccount?: string | null | undefined
   ) {
     this._name = name;
     this._level = level;
@@ -19,7 +19,7 @@ export default class School {
     this._bankAccount = bankAccount;
   }
 
-  protected get politicalOrientation(): string {
+  protected get politicalOrientation(): string | null | undefined {
     return this._politicalOrientation;
   }
 
@@ -35,7 +35,7 @@ export default class School {
     return this._numberOfStudents;
   }
 
-  protected get bankAccount(): string {
+  protected get bankAccount(): string | null | undefined {
     return this._bankAccount;
   }
 
@@ -60,12 +60,14 @@ export default class School {
   }
 
   quickFacts(): void {
+    //* is called on the class instance
     console.log(
       `${this._name} educates ${this._numberOfStudents} et the ${this._level} school level.`
     );
   }
 
   static pickSubstituteTeacher(subTeachers: string[]): string {
+    //* is called on the class (NOT THE INSTANCE(S) !)
     let randomIndex: number = Math.floor(
       Math.random() * (subTeachers.length - 1)
     );
