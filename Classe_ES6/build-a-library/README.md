@@ -1,25 +1,23 @@
-LEARN INTERMEDIATE JAVASCRIPT
-Build a Library
-Congratulations, you’ve become head librarian at your local Books-‘N-Stuff, which is in dire need of your help. They’re still using index cards to organize their content! Yikes.
+# Build a Library
 
-But no matter, you know some JavaScript, so let’s get to work modernizing your new digs.
+Build a Library est un projet visant à moderniser le système d'organisation de Books-‘N-Stuff, une bibliothèque locale. Actuellement, la bibliothèque utilise encore des fiches index pour gérer sa collection, ce qui n'est pas efficace.
 
-Books-‘N-Stuff carries three different types of media: books, CDs, and movies. In this project you will create a parent class named Media with three subclasses: Book, Movie, and CD. These three subclasses have the following properties and methods:
+## Aperçu
 
-Book
-Properties: author (string), title (string), pages (number), isCheckedOut (boolean, initially false), and ratings (array, initially empty).
-Getters: all properties have a getter
-Methods: .getAverageRating(), .toggleCheckOutStatus(), and .addRating()
+Dans ce projet, nous créons une application JavaScript qui gère trois types de médias : les livres, les CD et les films. Chaque type de média possède son propre ensemble de propriétés et de méthodes, et ils sont organisés en classes et sous-classes.
 
-Movie
-Properties: director (string), title (string), runTime (number), isCheckedOut (boolean, initially false), and ratings (array, initially empty)
-Getters: all properties have a getter
-Methods: .getAverageRating(), .toggleCheckOutStatus(), and .addRating()
+## Fonctionnalités
 
-CD
-Properties: artist (string), title (string), isCheckedOut (boolean, initially false), and ratings (array, initially empty), songs (array of strings)
-Getters: all properties have a getter
-Methods: .getAverageRating(), .toggleCheckOutStatus(), and .addRating()
-If you’re looking for a challenge, try to create the four classes without using the steps below.
+- **Classe Media** : La classe `Media` sert de classe parente pour tous les types de médias. Elle contient les propriétés et les méthodes communes partagées par les livres, les CD et les films.
+- **Classe Book** : La classe `Book` représente un livre et inclut des propriétés telles que l'auteur, le titre et le nombre de pages. Elle dispose également de méthodes pour calculer la note moyenne et basculer le statut de prêt.
+- **Classe Movie** : La classe `Movie` représente un film et inclut des propriétés telles que le réalisateur, le titre et la durée. Tout comme la classe `Book`, elle dispose de méthodes pour calculer la note moyenne et basculer le statut de prêt.
+- **Classe CD** : La classe `CD` représente un CD et inclut des propriétés telles que l'artiste, le titre et la liste des chansons. Elle fournit également des méthodes pour calculer la note moyenne et basculer le statut de prêt.
 
-If you get stuck during this project or would like to see an experienced developer work through it, click “Get Unstuck“ to see a project walkthrough video.
+## Utilisation
+
+Pour utiliser l'application, suivez simplement ces étapes :
+
+1. Clonez le dépôt sur votre machine locale.
+2. Ouvrez le répertoire du projet dans votre éditeur de code.
+3. Accédez au répertoire `src`.
+4. Utilisez les classes `Media`, `Book`, `Movie` et `CD` pour gérer la collection de votre bibliothèque.

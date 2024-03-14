@@ -3,20 +3,8 @@ import School from "../School";
 export default class PrimarySchool extends School {
   protected _pickupPolicy: string;
 
-  constructor(
-    name: string,
-    numbersOfStudents: number,
-    pickupPolicy: string,
-    politicalOrientation: string = "",
-    bankAccount: string = ""
-  ) {
-    super(
-      name,
-      "primary",
-      numbersOfStudents,
-      politicalOrientation,
-      bankAccount
-    );
+  constructor(name: string, numbersOfStudents: number, pickupPolicy: string) {
+    super(name, "primary", numbersOfStudents, "", "");
     this._pickupPolicy = pickupPolicy;
   }
 

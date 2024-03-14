@@ -6,9 +6,7 @@ import HighSchool from "./main_class/sub_classes/HichSchool";
 const lorraineHansbury: PrimarySchool = new PrimarySchool(
   "Lorraine Hansbury",
   514,
-  "Students must be picked up by a parent, guardian, or a family member over the age of 13.",
-  "",
-  ""
+  "Students must be picked up by a parent, guardian, or a family member over the age of 13."
 );
 
 console.log(lorraineHansbury);
@@ -30,7 +28,7 @@ console.log(
   ])
 );
 
-const alSmith: HighSchool = new HighSchool("Al E. Smith", 415, "", "", [
+const alSmith: HighSchool = new HighSchool("Al E. Smith", 415, [
   "Baseball",
   "Basketball",
   "Volleyball",
