@@ -35,11 +35,3 @@ WorkAround Explorer est une application web conçue pour visualiser facilement l
 ## Contributions
 
 Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce projet, veuillez ouvrir une issue pour discuter des modifications que vous souhaitez apporter.
-
-## Auteurs
-
-Ce projet a été réalisé par [votre nom].
-
-## Licence
-
-Ce projet est sous licence [MIT](LICENSE).
