@@ -1,0 +1,108 @@
+/* Global styles */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+/* Game board container */
+
+#game {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Game board table */
+
+#board {
+  border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#board td {
+  width: 60px;
+  height: 60px;
+  border: solid 2px #666;
+  background-color: #87CEFA; /* Light blue background for the board */
+  position: relative;
+}
+
+#board td:hover {
+  background-color: #add8e6; /* Slightly lighter blue on hover */
+}
+
+#startButton {
+  margin-bottom: 4rem;
+  border-radius: 20px;
+  background-color:chartreuse;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#startButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px color-mix(in srgb, rgba(0, 123, 255, 0.4) 50%, rgba(0, 0, 0, 0.2) 50%);
+}
+
+/* Pieces are div within game table cells: draw as colored circles */
+
+.piece {
+  margin: 5px;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.piece.p1 {
+  background-color: red;
+}
+
+.piece.p2 {
+  background-color: blue;
+}
+
+.piece.p1:hover, .piece.p2:hover {
+  transform: scale(1.1); /* Slightly enlarge the piece on hover */
+}
+
+/* Column-top is table row of clickable areas for each column */
+
+#column-top td {
+  border: dashed 1px lightgray;
+  cursor: pointer;
+}
+
+#column-top td:hover {
+  background-color: gold;
+}
+
+/* Footer styling */
+
+footer {
+  margin-top: 20px;
+  color: #666;
+}
