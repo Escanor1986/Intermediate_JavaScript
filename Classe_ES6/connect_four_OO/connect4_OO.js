@@ -16,18 +16,6 @@ class Game {
     }
   }
 
-  makeStartButton() {
-    const htmlBoard = document.getElementById("board");
-
-    const startButton = document.createElement("button");
-
-    startButton.setAttribute("id", "startButton");
-    startButton.innerText = "Start Game";
-    startButton.type = 'button';
-
-    htmlBoard.append(startButton);
-  }
-
   makeHtmlBoard() {
     const htmlBoard = document.getElementById("board");
   
@@ -130,6 +118,30 @@ class Game {
   
     // switch players
     this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+  }
+
+  makeStartButton() {
+    const htmlBoard = document.getElementById("board");
+
+    const startButton = document.createElement("button");
+
+    startButton.setAttribute("id", "startButton");
+    startButton.innerText = "Start Game";
+    startButton.type = 'button';
+    
+    startButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
+      if (this.board.length === 0) {
+        this.makeBoard();
+        this.makeHtmlBoard();
+      } else {
+        throw new Error(`Oups ! Seems you're already playing !`);
+      }
+    })
+
+    htmlBoard.append(startButton);
   }
 
   start() {
