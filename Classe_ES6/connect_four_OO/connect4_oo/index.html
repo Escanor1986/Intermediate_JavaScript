@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect 4</title>
+  <link href="connect4.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1 class="headerTitle">Connect 4</h1>
+    <div class="headerContent">
+      <h2 id="numberOfGames">Number of games : </h2>
+      <h2 id="numberOfWins">Number of wins :</h2>
+      <h2 id="numberOfLosses">Number of losses : </h2>
+    </div>
+  </header>
+
+  <main>
+    <div id="game" aria-label="Connect 4 game board"></div>
+    <div id="playerSetup">
+      <label for="player1Color">Player 1 Color:</label>
+      <input type="color" id="player1Color" name="player1Color" value="#ff0066">
+      <label for="player2Color">Player 2 Color:</label>
+      <input type="color" id="player2Color" name="player2Color" value="#0066ff">
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Connect 4 Game. All rights reserved.</p>
+  </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
