@@ -1,5 +1,4 @@
 /* Global styles */
-
 body {
   box-sizing: border-box; 
   font-family: 'Roboto', sans-serif;
@@ -28,6 +27,7 @@ header {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  padding-bottom: 2rem;
 }
 
 .headerTitle {
@@ -39,23 +39,14 @@ header {
   text-shadow: 0 0 10px rgba(51, 255, 204, 0.7), 0 0 20px rgba(51, 255, 204, 0.7);
 }
 
-#numberOfGames {
-  color: #33ffcc;
-  font-family: 'Orbitron', sans-serif;
-}
-
-#numberOfWins {
-  color: #33ffcc;
-  font-family: 'Orbitron', sans-serif;
-}
-
+#numberOfGames,
+#numberOfWins,
 #numberOfLosses {
   color: #33ffcc;
   font-family: 'Orbitron', sans-serif;
 }
 
 /* Game board container */
-
 #game {
   background-color: #2a2a2e;
   padding: 20px;
@@ -63,8 +54,6 @@ header {
   box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
   animation: neon-glow 1.5s ease-in-out infinite alternate;
 }
-
-/* Game board table */
 
 @keyframes neon-glow {
   from {
@@ -131,7 +120,6 @@ header {
 }
 
 /* Pieces are div within game table cells: draw as colored circles */
-
 .piece {
   margin: 5px;
   width: 80%;
@@ -143,22 +131,7 @@ header {
   left: 0;
 }
 
-.piece.p1 {
-  background-color: #ff0066;
-  box-shadow: 0 0 10px rgba(255, 0, 102, 0.7), 0 0 20px rgba(255, 0, 102, 0.7);
-}
-
-.piece.p2 {
-  background-color: #0066ff;
-  box-shadow: 0 0 10px rgba(0, 102, 255, 0.7), 0 0 20px rgba(0, 102, 255, 0.7);
-}
-
-.piece.p1:hover, .piece.p2:hover {
-  transform: scale(1.1);
-}
-
 /* Column-top is table row of clickable areas for each column */
-
 #column-top td {
   border: dashed 1px #33ffcc;
   cursor: pointer;
@@ -169,8 +142,25 @@ header {
   background-color: #ff0066;
 }
 
-/* Footer styling */
+/* Player color setup */
+#playerSetup {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  color: #33ffcc;
+}
 
+#playerSetup label {
+  margin: 0 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+#playerSetup input[type="color"] {
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+/* Footer styling */
 footer {
   margin-top: 20px;
   color: #33ffcc;

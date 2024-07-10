@@ -1,9 +1,8 @@
 "use strict";
 
 class Player {
-  constructor(color, isPlaying) {
+  constructor(color) {
     this.color = color;
-    this.isPlaying = false;
   }
 }
 
@@ -16,7 +15,8 @@ class Game {
     this.width = width;
     this.height = height;
     this.board = [];
-    this.currPlayer = 1;
+    this.players = [];
+    this.currPlayer = null;
     this.isGameOver = false; 
   }
 
@@ -82,7 +82,7 @@ class Game {
   placeInTable(y, x) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
-    piece.classList.add(`p${this.currPlayer}`);
+    piece.style.backgroundColor = this.currPlayer.color; // Set the color dynamically
   
     const spot = document.getElementById(`c-${y}-${x}`);
     spot.append(piece);
@@ -140,7 +140,7 @@ class Game {
   
     // check for win
     if (this.checkForWin()) {
-      return this.endGame(`Player ${this.currPlayer} won! Would you like to stop or restart a new game ?`);
+      return this.endGame(`Player ${this.currPlayer.color} won! Would you like to stop or restart a new game ?`);
     }
   
     // check for tie: if top row is filled, board is filled
@@ -149,7 +149,7 @@ class Game {
     }
   
     // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
   makeButtonBoard() {
@@ -177,7 +177,12 @@ class Game {
       event.stopPropagation();
       event.preventDefault();
 
+      const player1Color = document.getElementById("player1Color").value;
+      const player2Color = document.getElementById("player2Color").value;
+
       if (this.board.length === 0) {
+        this.players = [new Player(player1Color), new Player(player2Color)];
+        this.currPlayer = this.players[0];
         this.makeBoard();
         this.makeHtmlBoard();
         startButton.style.display = "none";
@@ -210,8 +215,6 @@ class Game {
         Game.numberOfGames += 1;
         if (this.isGameOver === false) {
           Game.numberOfLosses += 1;
-        } else {
-          Game.numberOfLosses = Game.numberOfLosses;
         }
         this.makeBoard();
         this.makeHtmlBoard();
