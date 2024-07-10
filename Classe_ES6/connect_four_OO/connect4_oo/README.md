@@ -102,7 +102,7 @@ Pour déployer le jeu sur GitHub Pages, suivez les étapes suivantes :
 
 ## Jouer au jeu
 
-Pour jouer au jeu en ligne, accédez à l'URL `https://github.com/Escanor1986/Intermediate_JavaScript/tree/main/Classe_ES6/connect_four_OO/connect4_oo`.
+Pour jouer au jeu en ligne, accédez à l'URL `https://escanor1986.github.io/Intermediate_JavaScript/`.
 
 ## Contribuer
 
