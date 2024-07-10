@@ -1,15 +1,23 @@
 "use strict";
 
+class Player {
+  constructor(color, isPlaying) {
+    this.color = color;
+    this.isPlaying = false;
+  }
+}
+
 class Game {
   static numberOfWins = 0;
   static numberOfGames = 0;
   static numberOfLosses = 0;
 
-  constructor(width = 10, height = 10) {
+  constructor(width = 10, height = 8) {
     this.width = width;
     this.height = height;
     this.board = [];
-    this.currPlayer = 1; 
+    this.currPlayer = 1;
+    this.isGameOver = false; 
   }
 
   makeGameCount() {
@@ -82,6 +90,7 @@ class Game {
 
   endGame(msg) {
     alert(msg);
+    this.isGameOver = true;
     this.makeGameCount(); // Update the game count after game ends
   }
 
@@ -114,6 +123,8 @@ class Game {
   }
 
   handleClick(evt) {
+    if (this.isGameOver) return; // Check if the game is over before proceeding
+
     // get x from ID of clicked cell
     const x = Number(evt.target.id.slice("top-".length));
   
@@ -197,10 +208,15 @@ class Game {
       if (htmlBoard) {
         htmlBoard.remove();
         Game.numberOfGames += 1;
-        Game.numberOfLosses += 1;
+        if (this.isGameOver === false) {
+          Game.numberOfLosses += 1;
+        } else {
+          Game.numberOfLosses = Game.numberOfLosses;
+        }
         this.makeBoard();
         this.makeHtmlBoard();
         this.makeGameCount(); // Update the game count after restarting a game
+        this.isGameOver = false; // Reset game over status
       } else {
         throw new Error(`Oups ! Seems to have a problem... Check out your browser !`);
       }

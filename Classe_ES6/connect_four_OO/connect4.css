@@ -2,8 +2,8 @@
 
 body {
   box-sizing: border-box; 
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #1a1a1d;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@ header {
   margin-right: 20px; 
   display: flex;
   flex-direction: column;
-  width: calc(100% - 40px); /* Réduis 40px (20px de chaque côté) pour compenser les marges */
+  width: calc(100% - 40px);
   max-width: 1200px; 
 }
 
@@ -30,35 +30,50 @@ header {
   align-items: center;
 }
 
-
 .headerTitle {
-  color: #333;
+  color: #33ffcc;
   display: flex;
   justify-content: center;
+  font-size: 2.5rem;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 10px rgba(51, 255, 204, 0.7), 0 0 20px rgba(51, 255, 204, 0.7);
 }
 
 #numberOfGames {
-  color: aqua;
+  color: #33ffcc;
+  font-family: 'Orbitron', sans-serif;
 }
 
 #numberOfWins {
-  color: chartreuse;
+  color: #33ffcc;
+  font-family: 'Orbitron', sans-serif;
 }
 
-#numberOfLosses{
-  color: red;
+#numberOfLosses {
+  color: #33ffcc;
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Game board container */
 
 #game {
-  background-color: #fff;
+  background-color: #2a2a2e;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+  animation: neon-glow 1.5s ease-in-out infinite alternate;
 }
 
 /* Game board table */
+
+@keyframes neon-glow {
+  from {
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5), 0 0 30px rgba(0, 255, 204, 0.3);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.8), 0 0 50px rgba(0, 255, 204, 0.6);
+  }
+}
 
 #board {
   border-collapse: collapse;
@@ -71,13 +86,14 @@ header {
 #board td {
   width: 60px;
   height: 60px;
-  border: solid 2px #666;
-  background-color: #87CEFA; /* Light blue background for the board */
+  border: solid 2px #33ffcc;
+  background-color: #1a1a1d;
   position: relative;
+  transition: background-color 0.3s;
 }
 
 #board td:hover {
-  background-color: #add8e6; /* Slightly lighter blue on hover */
+  background-color: #33ffcc;
 }
 
 #startButton {
@@ -85,14 +101,16 @@ header {
   padding: 1rem;
   margin-bottom: 4rem;
   border-radius: 20px;
-  background-color:chartreuse;
+  background-color: #33ffcc;
+  color: #1a1a1d;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
 }
 
 #startButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 15px color-mix(in srgb, rgba(0, 123, 255, 0.4) 50%, rgba(0, 0, 0, 0.2) 50%);
+  box-shadow: 0 8px 15px rgba(0, 255, 204, 0.5);
 }
 
 #restartButton {
@@ -100,14 +118,16 @@ header {
   padding: 1rem;
   margin-bottom: 4rem;
   border-radius: 20px;
-  background-color:red;
+  background-color: #ff0066;
+  color: #1a1a1d;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
 }
 
 #restartButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 15px color-mix(in srgb, rgba(0, 123, 255, 0.4) 50%, rgba(0, 0, 0, 0.2) 50%);
+  box-shadow: 0 8px 15px rgba(255, 0, 102, 0.5);
 }
 
 /* Pieces are div within game table cells: draw as colored circles */
@@ -124,31 +144,39 @@ header {
 }
 
 .piece.p1 {
-  background-color: red;
+  background-color: #ff0066;
+  box-shadow: 0 0 10px rgba(255, 0, 102, 0.7), 0 0 20px rgba(255, 0, 102, 0.7);
 }
 
 .piece.p2 {
-  background-color: blue;
+  background-color: #0066ff;
+  box-shadow: 0 0 10px rgba(0, 102, 255, 0.7), 0 0 20px rgba(0, 102, 255, 0.7);
 }
 
 .piece.p1:hover, .piece.p2:hover {
-  transform: scale(1.1); /* Slightly enlarge the piece on hover */
+  transform: scale(1.1);
 }
 
 /* Column-top is table row of clickable areas for each column */
 
 #column-top td {
-  border: dashed 1px lightgray;
+  border: dashed 1px #33ffcc;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 #column-top td:hover {
-  background-color: gold;
+  background-color: #ff0066;
 }
 
 /* Footer styling */
 
 footer {
   margin-top: 20px;
-  color: #666;
+  color: #33ffcc;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 5px rgba(51, 255, 204, 0.7), 0 0 10px rgba(51, 255, 204, 0.7);
 }
+
+/* Custom font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
