@@ -12,6 +12,16 @@ class Game {
     this.currPlayer = 1; 
   }
 
+  makeGameCount() {
+    const games = document.getElementById("numberOfGames");
+    const wins = document.getElementById("numberOfWins");
+    const losses = document.getElementById("numberOfLosses");
+
+    games.innerText = `Number of Games : ${Game.numberOfGames}`;
+    wins.innerText = `Number of wins : ${Game.numberOfWins}`;
+    losses.innerText = `Number of losses : ${Game.numberOfLosses}`;
+  }
+
   makeBoard() {
     this.board = [];
     for (let y = 0; y < this.height; y++) {
@@ -72,6 +82,7 @@ class Game {
 
   endGame(msg) {
     alert(msg);
+    this.makeGameCount(); // Update the game count after game ends
   }
 
   checkForWin() {
@@ -136,9 +147,9 @@ class Game {
     const buttonBoard = document.createElement("div");
     buttonBoard.setAttribute("id", "buttonBoard");
     buttonBoard.style.display = "flex";
-    buttonBoard.style.flexDirection = "row"
-    buttonBoard.style.justifyContent = "center"
-    buttonBoard.style.alignItems = "center"
+    buttonBoard.style.flexDirection = "row";
+    buttonBoard.style.justifyContent = "center";
+    buttonBoard.style.alignItems = "center";
 
     mainBoard.append(buttonBoard);
     this.makeStartButton(buttonBoard);
@@ -161,16 +172,17 @@ class Game {
         startButton.style.display = "none";
         this.makeRestartButton();
         Game.numberOfGames += 1;
+        this.makeGameCount(); // Update the game count after starting a new game
       } else {
         throw new Error(`Oups ! Seems you're already playing !`);
       }
-    })
+    });
 
     parent.append(startButton);
   }
 
   makeRestartButton() {
-    const buttonBoard = document.getElementById("buttonBoard")
+    const buttonBoard = document.getElementById("buttonBoard");
     const restartButton = document.createElement("button");
 
     restartButton.setAttribute("id", "restartButton");
@@ -188,16 +200,18 @@ class Game {
         Game.numberOfLosses += 1;
         this.makeBoard();
         this.makeHtmlBoard();
+        this.makeGameCount(); // Update the game count after restarting a game
       } else {
         throw new Error(`Oups ! Seems to have a problem... Check out your browser !`);
       }
-    })
+    });
 
     buttonBoard.append(restartButton);
   }
 
   start() {
     this.makeButtonBoard();
+    this.makeGameCount(); // Initialize the game count at the start
   }
 }
 
