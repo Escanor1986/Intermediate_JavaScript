@@ -69,7 +69,10 @@ class Game {
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement("td");
       headCell.setAttribute("id", `top-${x}`);
-      headCell.addEventListener("click", this.handleClick.bind(this));
+      // Here we bind "this" (that refer to the instance of the class)
+      // because inside the eventListener method, "this" refer to the
+      // Window Object, not to the instance of the class
+      headCell.addEventListener("click", this.handleClick.bind(this)); 
       top.append(headCell);
     }
     htmlBoard.append(top);
