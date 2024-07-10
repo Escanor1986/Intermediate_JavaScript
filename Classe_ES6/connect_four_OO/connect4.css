@@ -1,6 +1,7 @@
 /* Global styles */
 
 body {
+  box-sizing: border-box; 
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   display: flex;
@@ -14,10 +15,38 @@ body {
 
 header {
   margin-bottom: 20px;
+  margin-left: 20px; 
+  margin-right: 20px; 
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 40px); /* Réduis 40px (20px de chaque côté) pour compenser les marges */
+  max-width: 1200px; 
 }
 
-h1 {
+.headerContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.headerTitle {
   color: #333;
+  display: flex;
+  justify-content: center;
+}
+
+#numberOfGames {
+  color: aqua;
+}
+
+#numberOfWins {
+  color: chartreuse;
+}
+
+#numberOfLosses{
+  color: red;
 }
 
 /* Game board container */
@@ -52,6 +81,8 @@ h1 {
 }
 
 #startButton {
+  display: block;
+  padding: 1rem;
   margin-bottom: 4rem;
   border-radius: 20px;
   background-color:chartreuse;
@@ -60,6 +91,21 @@ h1 {
 }
 
 #startButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px color-mix(in srgb, rgba(0, 123, 255, 0.4) 50%, rgba(0, 0, 0, 0.2) 50%);
+}
+
+#restartButton {
+  display: block;
+  padding: 1rem;
+  margin-bottom: 4rem;
+  border-radius: 20px;
+  background-color:red;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#restartButton:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 15px color-mix(in srgb, rgba(0, 123, 255, 0.4) 50%, rgba(0, 0, 0, 0.2) 50%);
 }

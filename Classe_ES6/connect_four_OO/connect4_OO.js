@@ -1,15 +1,19 @@
 "use strict";
 
 class Game {
+  static numberOfWins = 0;
+  static numberOfGames = 0;
+  static numberOfLosses = 0;
 
   constructor(width = 10, height = 10) {
     this.width = width;
     this.height = height;
     this.board = [];
-    this.currPlayer = 1; // Initialisation de currPlayer
+    this.currPlayer = 1; 
   }
 
   makeBoard() {
+    this.board = [];
     for (let y = 0; y < this.height; y++) {
       const emptyRow = Array.from({ length: this.width }, () => null);
       this.board.push(emptyRow);
@@ -17,8 +21,13 @@ class Game {
   }
 
   makeHtmlBoard() {
-    const htmlBoard = document.getElementById("board");
-  
+    const mainBoard = document.getElementById("game");
+
+    const htmlBoard = document.createElement("table");
+    htmlBoard.setAttribute("id", "board");
+
+    mainBoard.append(htmlBoard);
+
     const top = document.createElement("tr");
     top.setAttribute("id", "column-top");
   
@@ -33,7 +42,7 @@ class Game {
     for (let y = 0; y < this.height; y++) {
       const row = document.createElement('tr');
   
-      for (let x = 0; x < this.width; x++) { // Correction: this.width
+      for (let x = 0; x < this.width; x++) {
         const cell = document.createElement('td');
         cell.setAttribute('id', `c-${y}-${x}`);
         row.append(cell);
@@ -70,9 +79,9 @@ class Game {
       return cells.every(
         ([y, x]) =>
           y >= 0 &&
-          y < this.height && // Correction: this.height
+          y < this.height &&
           x >= 0 &&
-          x < this.width && // Correction: this.width
+          x < this.width && 
           this.board[y][x] === this.currPlayer
       );
     };
@@ -85,6 +94,7 @@ class Game {
         const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
         if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+          Game.numberOfWins += 1;
           return true;
         }
       }
@@ -103,26 +113,38 @@ class Game {
     }
   
     // place piece in board and add to HTML table
-    this.board[y][x] = this.currPlayer; // Correction: this.board and this.currPlayer
+    this.board[y][x] = this.currPlayer; 
     this.placeInTable(y, x);
   
     // check for win
-    if (this.checkForWin()) { // Correction: this.checkForWin()
-      return this.endGame(`Player ${this.currPlayer} won!`);
+    if (this.checkForWin()) {
+      return this.endGame(`Player ${this.currPlayer} won! Would you like to stop or restart a new game ?`);
     }
   
     // check for tie: if top row is filled, board is filled
-    if (this.board[0].every(cell => cell !== null)) { // Correction: this.board
-      return this.endGame('Tie!');
+    if (this.board[0].every(cell => cell !== null)) { 
+      return this.endGame('Tie! Would you like to stop or restart a new game ?');
     }
   
     // switch players
     this.currPlayer = this.currPlayer === 1 ? 2 : 1;
   }
 
-  makeStartButton() {
-    const htmlBoard = document.getElementById("board");
+  makeButtonBoard() {
+    const mainBoard = document.getElementById("game");
 
+    const buttonBoard = document.createElement("div");
+    buttonBoard.setAttribute("id", "buttonBoard");
+    buttonBoard.style.display = "flex";
+    buttonBoard.style.flexDirection = "row"
+    buttonBoard.style.justifyContent = "center"
+    buttonBoard.style.alignItems = "center"
+
+    mainBoard.append(buttonBoard);
+    this.makeStartButton(buttonBoard);
+  }
+
+  makeStartButton(parent) {
     const startButton = document.createElement("button");
 
     startButton.setAttribute("id", "startButton");
@@ -136,18 +158,48 @@ class Game {
       if (this.board.length === 0) {
         this.makeBoard();
         this.makeHtmlBoard();
+        startButton.style.display = "none";
+        this.makeRestartButton();
+        Game.numberOfGames += 1;
       } else {
         throw new Error(`Oups ! Seems you're already playing !`);
       }
     })
 
-    htmlBoard.append(startButton);
+    parent.append(startButton);
+  }
+
+  makeRestartButton() {
+    const buttonBoard = document.getElementById("buttonBoard")
+    const restartButton = document.createElement("button");
+
+    restartButton.setAttribute("id", "restartButton");
+    restartButton.innerText = "Restart Game";
+    restartButton.type = 'button';
+    
+    restartButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      const htmlBoard = document.getElementById("board");
+
+      if (htmlBoard) {
+        htmlBoard.remove();
+        Game.numberOfGames += 1;
+        Game.numberOfLosses += 1;
+        this.makeBoard();
+        this.makeHtmlBoard();
+      } else {
+        throw new Error(`Oups ! Seems to have a problem... Check out your browser !`);
+      }
+    })
+
+    buttonBoard.append(restartButton);
   }
 
   start() {
-    this.makeStartButton();
+    this.makeButtonBoard();
   }
 }
 
-const newGame = new Game(12, 12);
-newGame.makeStartButton();
+const newGame = new Game();
+newGame.start();
