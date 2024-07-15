@@ -6,9 +6,11 @@ import './style.css'
 // Define Player class with a color property
 class Player {
   color: string;
+  isAI: boolean;
 
-  constructor(color: string) {
-    this.color = color; // Store player's color
+  constructor(color: string, isAI: boolean) {
+    this.color = color;
+    this.isAI = isAI;
   }
 }
 
@@ -46,6 +48,8 @@ class Game {
   }
 
   // Initialize the board with null values
+  // For each empty("null") cell on this.height line
+  // we push an "emptyRow" with a length === this.width
   makeBoard() {
     this.board = [];
     for (let y = 0; y < this.height; y++) {
@@ -63,21 +67,28 @@ class Game {
 
     mainBoard.append(htmlBoard);
 
+    // We create the main top row that shall by filled up with empty cell "td"  
+    // "x" axes ==> horizontale
     const top = document.createElement("tr");
     top.setAttribute("id", "column-top");
 
     for (let x = 0; x < this.width; x++) {
+      // creation of "click & drop zone(row)" for cell of the game
+      // x0, x1, x2, ... x9
       const headCell = document.createElement("td");
       headCell.setAttribute("id", `top-${x}`);
       // Here we bind "this" (that refer to the instance of the class)
-      // because inside the eventListener method, "this" refer to the
+      // because inside the method eventListener, "this" refer to the
       // Window Object, not to the instance of the class
       headCell.addEventListener("click", this.handleClick.bind(this)); 
       top.append(headCell);
     }
     htmlBoard.append(top);
 
+    // And here create the entire game table 
+    // with a surface of this.heihgt * this.width
     for (let y = 0; y < this.height; y++) {
+      // Game "x" axes ==> horizontale 
       const row = document.createElement('tr');
 
       for (let x = 0; x < this.width; x++) {
@@ -90,17 +101,20 @@ class Game {
     }
   }
 
-  // Find the next available spot in a column
+  // Find the next available spot in a column "x" from base to top
   findSpotForCol(x: number): number | null {
+    // When choosen top cell's is clicked
+    // the game check which cell from base to top is available or "null"
     for (let y = this.height - 1; y >= 0; y--) {
       if (this.board[y][x] === null) {
+        // return the first "null" cell to place a color div or "player"
         return y;
       }
     }
     return null;
   }
 
-  // Place the piece in the HTML table
+  // Create && Place the piece in the HTML table
   placeInTable(y: number, x: number) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
@@ -151,13 +165,16 @@ class Game {
     if (this.isGameOver) return;
 
     const x = Number((evt.target as HTMLElement).id.slice("top-".length));
+    console.log("x = ", x);
 
     const y = this.findSpotForCol(x);
+    console.log("y = ", y);
     if (y === null) {
       return;
     }
 
     this.board[y][x] = this.currPlayer!;
+    console.log(this.board)
     this.placeInTable(y, x);
 
     if (this.checkForWin()) {
@@ -201,7 +218,7 @@ class Game {
       const player2Color = (document.getElementById("player2Color") as HTMLInputElement).value;
 
       if (this.board.length === 0) {
-        this.players = [new Player(player1Color), new Player(player2Color)];
+        this.players = [new Player(player1Color, false), new Player(player2Color, true)];
         this.currPlayer = this.players[0];
         this.makeBoard();
         this.makeHtmlBoard();
