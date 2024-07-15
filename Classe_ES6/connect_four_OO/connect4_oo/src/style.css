@@ -163,6 +163,13 @@ header {
   cursor: pointer;
 }
 
+#playerSetup input[type="checkbox"] {
+  margin: 0 1rem;
+  width: 2rem;
+  accent-color: #33ffcc;  /* CHnages color of checkbox */
+  cursor: pointer;
+}
+
 /* Footer styling */
 footer {
   margin-top: 20px;

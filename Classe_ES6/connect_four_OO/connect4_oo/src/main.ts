@@ -1,18 +1,8 @@
 "use strict";
 
+// Import Player class from another module
+import Player from './sub_classes/Player';
 import './style.css'
-
-
-// Define Player class with a color property
-class Player {
-  color: string;
-  isAI: boolean;
-
-  constructor(color: string, isAI: boolean) {
-    this.color = color;
-    this.isAI = isAI;
-  }
-}
 
 // Define Game class
 class Game {
@@ -22,7 +12,7 @@ class Game {
 
   width: number;
   height: number;
-  board: (Player | null)[][]; // 2D array to hold Player instances or null
+  board: (Player | string | null)[][]; // 2D array to hold Player instances or null
   players: Player[];
   currPlayer: Player | null;
   isGameOver: boolean;
@@ -162,31 +152,68 @@ class Game {
 
   // Handle a column click event
   handleClick(evt: MouseEvent) {
+
     if (this.isGameOver) return;
 
-    const x = Number((evt.target as HTMLElement).id.slice("top-".length));
-    console.log("x = ", x);
+    // Changes turn of player during the game after clicking
+    if (this.currPlayer === this.players[0] && this.currPlayer.isAI === false) {
 
-    const y = this.findSpotForCol(x);
-    console.log("y = ", y);
-    if (y === null) {
-      return;
+      const x = Number((evt.target as HTMLElement).id.slice("top-".length));
+      console.log("x = ", x);
+
+      const y = this.findSpotForCol(x);
+      console.log("y = ", y);
+      if (y === null) {
+        return;
+      }
+    
+      this.board[y][x] = this.currPlayer!.color;
+      console.log(this.board)
+      this.placeInTable(y, x);
+
+      if (this.checkForWin()) {
+        return this.endGame(`Player ${this.currPlayer!.color} won! Would you like to stop or restart a new game?`);
+      }
+
+      if (this.board[0].every(cell => cell !== null)) {
+         return this.endGame('Tie! Would you like to stop or restart a new game?');
+       }
+
+       this.currPlayer = this.players[1];
+      if (this.currPlayer === this.players[1] && this.currPlayer.isAI === true) {
+        setTimeout(() => this.makePlayingAI(), 500);
+      }
+    } else {
+      this.currPlayer = this.players[0];
     }
-
-    this.board[y][x] = this.currPlayer!;
-    console.log(this.board)
-    this.placeInTable(y, x);
-
-    if (this.checkForWin()) {
-      return this.endGame(`Player ${this.currPlayer!.color} won! Would you like to stop or restart a new game?`);
-    }
-
-    if (this.board[0].every(cell => cell !== null)) {
-      return this.endGame('Tie! Would you like to stop or restart a new game?');
-    }
-
-    this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
+
+
+  makePlayingAI() {
+    let bestRow = 0;
+    let bestMove: [number, number] = [0, 0];
+    let maxRowLength = 0;
+
+    this.board.forEach((row, rowIndex) => {
+      let rowLength = 0;
+
+      row.forEach((value, colIndex) => {
+        if (value !== null && typeof value === 'string' && value === this.currPlayer!.color) {
+          rowLength += 1;
+          if (rowLength > maxRowLength) {
+            maxRowLength = rowLength;
+            bestRow = rowIndex;
+            bestMove = [rowIndex, colIndex];
+          }
+        } else {
+          rowLength = 0; // Reset rowLength if the sequence breaks
+        }
+      });
+    });
+
+    console.log(`Best row: ${bestRow}, Best move: ${bestMove}, Max row length: ${maxRowLength}`);
+    return bestMove; // Return the best move found
+  }  
 
   // Create buttons for starting and restarting the game
   makeButtonBoard() {
@@ -216,9 +243,12 @@ class Game {
 
       const player1Color = (document.getElementById("player1Color") as HTMLInputElement).value;
       const player2Color = (document.getElementById("player2Color") as HTMLInputElement).value;
+      const player2AI = (document.getElementById("player2AI") as HTMLInputElement).checked;
+
+      console.log(player2AI);
 
       if (this.board.length === 0) {
-        this.players = [new Player(player1Color, false), new Player(player2Color, true)];
+        this.players = [new Player(player1Color, false), new Player(player2Color, player2AI)];
         this.currPlayer = this.players[0];
         this.makeBoard();
         this.makeHtmlBoard();
